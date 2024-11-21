@@ -1,0 +1,68 @@
+train/test: 'train'
+name: 'mi'
+
+train:
+  seed: 2024
+  epoch: 100
+  batch_size: 450
+  train_ratio: 0.8
+  num_worker: 4
+  val_ratio: 0.2
+  set_start_epoch: 0
+  optimizer: adam
+  save_fre: 50
+  temperature: 1
+  
+  mi_loss_type: 'vsd'
+  no_im_loss_steps: 10
+  mi_loss: True
+  gan_loss: True
+  autoweighted: False
+
+
+
+loss:
+  l2_loss_weight: 4
+  BCE_loss_weight: 1
+  lpips_loss_weight: 1.5
+  G_loss_weight: 0.5
+  mi_loss_weight: 3
+  l2_loss_ramp: 100         # note that ramp setting is relervant to batchsize
+  lpips_loss_ramp: 100
+  BCE_loss_ramp: 1
+  G_loss_ramp: 100
+
+val:
+  batch_size: 450
+
+log:
+  subfolder: ""
+  logs_folder: "./experiments_stegastamp"
+  
+data:
+  dataset: "celeb"
+  normalize: False
+  image_resolution: 256
+  num:
+
+model:
+  image_resolution: 256
+  Image_channels: 3
+  message_length: 100
+  encoder_noise: False       # GN noise on the text tensor after upsample process 
+  e_sigma: 0
+  pretrained_e:
+  pretrained_d:
+  frozen_upsample: False
+
+# support only one noise in current
+noise:
+  choice: 'GN'
+  sigma: 0.1
+
+lre: 0.0001      # lre for encoder is smaller in mi loss mode
+lrd: 0.0001
+
+resume: True
+resume_path: 
+

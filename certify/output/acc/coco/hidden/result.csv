@@ -1,0 +1,13 @@
+model,certified-acc
+GN_0.1,1.0
+GN_0.25,1.0
+GN_0.5,1.0
+affine_0.01,1.0
+affine_0.02,1.0
+affine_0.03,1.0
+miGN_0.1,0.978
+miGN_0.25,0.988
+miGN_0.5,1.0
+miaffine_0.01,1.0
+miaffine_0.02,1.0
+miaffine_0.03,1.0

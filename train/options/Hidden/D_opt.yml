@@ -1,0 +1,66 @@
+train/test: 'train'
+name: ''
+
+train:
+  seed: 2024
+  epoch: 300
+  batch_size: 240
+  train_ratio: 0.8
+  num_worker: 4
+  optimizer: adam
+  val_ratio: 0.2
+  set_start_epoch: 0
+  use_discriminator: True
+  vgg_loss: False
+  mi_loss: False
+  mi_loss_type: ''
+  save_fre: 10
+  enable_fp16: False
+
+loss:
+  encoder_loss_weight: 0.7
+  decoder_loss_weight: 3
+  mi_loss_weight: 0
+  adversarial_loss_weight: 1.0e-3
+
+val:
+  batch_size: 240
+
+log:
+  subfolder:
+  logs_folder: "./experiments_hidden"
+  
+data:
+  normalize: True
+  image_resolution: 128
+  dataset: "celeb"
+  num:
+
+model:
+  H: 128
+  W: 128
+  encoder_channels: 64
+  encoder_blocks: 4
+
+  decoder_channels: 64
+  decoder_blocks: 7
+
+  discriminator_channels: 64
+  discriminator_blocks: 4
+  message_length: 100
+
+  pretrained_e: 
+  pretrained_d: 
+
+
+
+# support only one noise in current
+noise:
+  choice: ''
+  sigma:
+
+lr: 0.0001
+
+
+resume: False
+resume_path: ""
