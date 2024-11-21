@@ -3,14 +3,24 @@ import random
 import sys
 from os.path import join
 
+import models.stega as stega
 import numpy as np
 import torch
 from easydict import EasyDict
-
-import models.stega as stega
 from models.hidden import Decoder, Encoder
 from models.stega import StegaStampDecoder, StegaStampEncoder
 
+
+def generate_message(message_length,string=None,batch_size=4):
+    '''
+    generate random messages with dim of (b,message_length) randomly if string is None
+    otherwise return identical messages with same dim
+    '''
+    if string is None:
+        z = torch.zeros((batch_size, message_length), dtype=torch.float).random_(0, 2)
+    else:
+        z = torch.tensor(str2msg(string)).repeat(batch_size,1).float() 
+    return z
 
 def ber_on_str(str1, str2):
     assert len(str1) == len(str2), "string1 and string2 must share same length"

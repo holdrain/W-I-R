@@ -6,7 +6,6 @@ import torch
 import torch.nn.functional as F
 from scipy.stats import binomtest, norm
 from statsmodels.stats.proportion import proportion_confint
-
 from utils.certifyutils import *
 
 

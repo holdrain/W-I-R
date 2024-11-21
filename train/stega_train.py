@@ -9,14 +9,13 @@ import torch
 import torch.multiprocessing as mp
 from accelerate import Accelerator
 from box import Box
+from dataset import get_celebdl, get_cocodl, get_imagenet
+from models.deform import DeformWrapper
+from models.stega import Stega_Discriminator
 from torch.optim import Adam, AdamW, RMSprop
 from torchvision.utils import save_image
 from tqdm import tqdm
 from tqdm.auto import tqdm
-
-from dataset import get_celebdl, get_cocodl, get_imagenet
-from models.deform import DeformWrapper
-from models.stega import Stega_Discriminator
 from utils.helpers import *
 from utils.log import *
 from utils.metrics import BatchMetricsAccumulator
@@ -144,6 +143,10 @@ def main(config):
         print("PSNR(train): PSNR(W-C):{:.2f}---PSNR(N-W):{:.2f}---SSIM(W-C):{:.2f}".format(metric_dict['PSNR(W-C)'],
                                                                                         metric_dict['PSNR(N-W)'],
                                                                                           metric_dict['SSIM(W-C)']))
+        # validate
+        tolerant = cal_tolerant(opt.model.message_length)
+        Bit_acc,acc,psnr,ssim = validate_stega(vdl,encoder,decoder,accelerator,opt,tolerant)
+        print("Bit_acc(val){}".format(Bit_acc),"Acc(val):",acc,"PSNR(val):",psnr,"SSIM(val):",ssim)
         # Logging
         if accelerator.is_main_process:
             # train log
@@ -168,10 +171,6 @@ def main(config):
                 for key, tensor in image_dict.items():
                     save_path = os.path.join(save_image_path, f"{key}_{i_epoch}.jpg")
                     save_image(tensor, save_path)
-                # validate
-                # tolerant = cal_tolerant(opt.model.message_length)
-                # Bit_acc,acc,psnr,ssim = validate_stega(vdl,encoder,decoder,accelerator,opt,tolerant)
-                # print("Bit_acc(val){}".format(Bit_acc),"Acc(val):",acc,"PSNR(val):",psnr,"SSIM(val):",ssim)
 
         accelerator.wait_for_everyone()
        
@@ -191,7 +190,6 @@ if __name__ == "__main__":
     parser.add_argument('--epoch',type=int)
     parser.add_argument('--set_start_epoch',type=int)
     parser.add_argument('--optimizer',type=str)
-    parser.add_argument('--val_fre',type=int)
     args = parser.parse_args()
     main(args)
                 

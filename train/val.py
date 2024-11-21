@@ -1,17 +1,17 @@
 import csv
-import os
 
 import torch
+from dataset import CustomImageFolder
+from models.deform import DeformWrapper
+from models.stega import *
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from torchvision.datasets import ImageFolder
 from tqdm.auto import tqdm
-
-from dataset import CustomImageFolder
-from models.deform import DeformWrapper
-from models.stega import *
 from utils.helpers import *
 from utils.metrics import psnr_ssim
+
+from setting import *
 
 
 def generate_random_fingerprints(message_length, batch_size=4):
@@ -150,11 +150,10 @@ if __name__ == "__main__":
     for dataset in ["CelebA"]:
         for model_choice in ["hidden"]:
             message_len = 100
-            mi = ""
-            data_dir = {"CelebA":"/data/shared/deepfake/CelebA-HQ/val","COCO":"/data/shared/coco2017/test2017"}
+            mi = ""  # 'mi' or ''
+            data_dir = {"CelebA":CELEBAHQ_VAL_PATH,"COCO":MSCOCO_TEST_PATH}
             data_num = {"CelebA":None,"COCO":1000}
             ckp_root = f"/data/shared/Huggingface/sharedcode/Stegastamp_Train/{mi}weights/{dataset}/{model_choice}"
-            
             transform_pipe = [
                 transforms.Resize((128,128)),
                 transforms.ToTensor(),

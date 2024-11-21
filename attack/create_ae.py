@@ -1,14 +1,14 @@
 import argparse
 
 import torch
+from dataset import CustomImageFolder
+from models.deform import DeformWrapper
+from setting import *
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from torchvision.datasets import ImageFolder
 from torchvision.utils import save_image
 from tqdm.auto import tqdm
-
-from dataset import CustomImageFolder
-from models.deform import DeformWrapper
 from utils.helpers import *
 
 
@@ -57,7 +57,8 @@ def create_ae(vdl,encoder,decoder,args,device,num,f):
 if __name__ == "__main__":
     set_seeds(2024)
     data_dir = {
-        'celeb':"/data/shared/deepfake/CelebA-HQ/val"
+        'celeb': CELEBAHQ_VAL_PATH,
+        'coco': MSCOCO_TEST_PATH
     }
     parser = argparse.ArgumentParser(description="Find ae")
 
@@ -81,7 +82,7 @@ if __name__ == "__main__":
     new_dir(os.path.join(args.output_dir,args.aug_method,str(args.sigma)))
 
     transform_pipe = [
-        transforms.Resize((128,128)),   
+        transforms.Resize((image_resolution[args.data_choice],image_resolution[args.data_choice])),   
         transforms.ToTensor(),
     ]
     if args.model_choice == 'hidden':

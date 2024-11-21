@@ -47,7 +47,7 @@ def main(config):
     # accelerate
     mp.set_start_method("spawn")
     accelerator = Accelerator(
-        dispatch_batches=False,split_batches=False,
+        split_batches=False,
     )
     setup_for_distributed(accelerator.is_main_process)
     device = accelerator.device
