@@ -1,27 +1,32 @@
 # W-I-R
-official code of WIR
+Official code of WIR
 
 This project is made of three modules: attack,certify,and train
 
-attack: implement identity linking attack, identity forge attack, identity extract attack
+1. Attack: implement identity linking attack, identity forge attack, identity extract attack
 
-certify: certify watermark model
+2. Certify: certify watermark model
 
-train: implement watermark model(stegastamp and hidden) train.
+3. Train: implement watermark model(stegastamp and hidden) train.
+
 
 Train watermark model or mutal information version watermark model
-'''
-bash scripts/stega/train.sh
-'''
 
-certity watermark model
-'''
-bash scripts/stega/certify.sh
-'''
+```
+    bash scripts/stega/train.sh
+```
 
+Certity watermark model
+```
+    bash scripts/stega/certify.sh
+```
+
+Attack watermark model
+```
 You can implement identity linking attack by run attack/KNN.ipynb
 You can implement identity forge attack by run attack/KNN_forge.ipynb
 You can implement identity extract attack by run attack/extract_attack.ipynb
+```
 
 
 
