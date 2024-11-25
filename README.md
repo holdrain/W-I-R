@@ -1,5 +1,5 @@
 
-
+This repository is the official implementation of *“Training robust watermarking model may hurt authentication!” Exploring and Mitigating the Identity Leakage in Robust Watermarking*.
 
 ### Code
 
