@@ -1,11 +1,8 @@
 
 
-In the spirit of promoting open science and transparency, we are committed to making the following artifacts available to the research community.
 
 ### Code
 
-We will make the source code for the proposed framework and the attacks available. This includes the Python code for implementing the methods described in this paper and the scripts required to run the code. 
-The code is now accessible via an **anonymous GitHub repository**: https://anonymous.4open.science/r/W-I-R-309D/README.md
 1. Code structure: The code is made of three modules, train module (for training the WCR and WIR models), certify module (for certifying watermark extraction), and attack module (for identity linking, identity forge, and identity extraction attacks). 
   The details of the file's function are described as follows:
   - **Train module:**
