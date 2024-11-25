@@ -1,7 +1,4 @@
----
-title: Open science statement
 
----
 
 In the spirit of promoting open science and transparency, we are committed to making the following artifacts available to the research community.
 
