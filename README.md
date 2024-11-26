@@ -3,9 +3,10 @@ This repository is the official implementation of *“Training robust watermarki
 
 ### Code
 
-1. Code structure: The code is made of three modules, train module (for training the WCR and WIR models), certify module (for certifying watermark extraction), and attack module (for identity linking, identity forge, and identity extraction attacks). 
-  The details of the file's function are described as follows:
-  - **Train module:**
+1. Code structure: The code is made of three modules, training, certification, and attack module. 
+    The details of the file's function are described as follows.
+  - **Training.**
+    
     ```
     train/              
         options/  <Train options>
@@ -27,8 +28,9 @@ This repository is the official implementation of *“Training robust watermarki
                 Train_mi.sh  <WIR scripts>
                 Train.sh  <WCR, WER, Clean vanilla scripts>
         val.py  <Val and test file>
-        
-  - **Certify:**
+    
+  - **Certification.**
+    
     ```
     certify/
         certified_acc.ipynb  <Caculate certified acc file>
@@ -38,8 +40,9 @@ This repository is the official implementation of *“Training robust watermarki
         WM_smooth.py  <Random smoothing file>
         scripts/
             certify.sh  <Certify scripts>
-            
-  - **Attack:**
+    
+  - **Attack.**
+    
     ```
     attack/
         clustering_function.py  <Functions of cluster>
@@ -90,30 +93,35 @@ This repository is the official implementation of *“Training robust watermarki
     dataset.py <CustomDataset class>
     requirements.txt <Python packages>
     
-2. Create a conda environment:
+2. Create a conda environment.
     ```
     conda create --name WIR --file requirements.txt
     ```
 
-3. Activate conda environment：
+3. Activate conda environment.
     ```
     conda activate WIR
     ```
     
 ### Datasets
-    
+
 We use three publicly available datasets: CelebA-HQ, MSCOCO2017, and ImageNet1K. The specific settings and configurations used for these datasets are detailed in the paper. Additionally, the code for dataset splitting is provided. For example, the CelebA-HQ dataset is divided into a 12:3:1 ratio. These datasets are publicly available and can be accessed through their respective official repositories.
 1. Download the datasets from their homepage.
+   
+
   CelebA-HQ: https://github.com/tkarras/progressive_growing_of_gans
+
   MS-COCO2017: https://cocodataset.org/#home
+
   ImageNet-1k: https://www.image-net.org/download.php
+
 2. Unzip the datasets into your datasets folder, then set the path to your dataset in setting.py.
     ```
     ROOT_DIR = "Your datasets folder for saving three datasets"
     ```
 
 ### Configuration Information and Scripts
-    
+
 To enable the reproducibility of our results, we will provide all configuration information necessary to recreate the experiments. This includes parameters, hyperparameters used in our experiments, as well as details on how to run the proposed framework. In addition, we will make all scripts available in our code.
 
 1. For training the watermark model, you can adjust the parameters and hyperparameters by updating the settings in the options or via the command line in the scripts. 
@@ -121,7 +129,7 @@ To enable the reproducibility of our results, we will provide all configuration 
     CUDA_VISIBLE_DEVICES=0,2,4,5 accelerate launch --num_processes 4 --main_process_port 29521 Stega_train.py --file options/Stega/D_opt.yml --dataset imagenet --batch_size 120 --sigma 0.03 --noise_choice affine \
     --lre 0.0001 --lrd 0.0001 --set_start_epoch 0 --epoch 100 --optimizer adam --num 20000 --resume_path /data/shared/Huggingface/sharedcode/Stegastamp_Train/experiments_stegastamp/imagenet/OO/-2024-11-20-11:31-train/path_checkpoint/epoch_499_state.pth
     ```
-    The following is a description of some parameters in the configuration file:
+    The following is a description of some parameters in the configuration file.
     - file: The file path for training settings.
     - sigma: The intensity of noise added during training.
     - lre: The learning rate of the encoder.
@@ -143,7 +151,3 @@ To enable the reproducibility of our results, we will provide all configuration 
 4. For the three attacks proposed in the paper, you can directly adjust the settings in the provided IPython notebook file, i.e., `linking.ipynb`, `forge.ipynb`, and `extract_attack.ipynb`.
 
     
-### Sharing Limitations
-
-At this time, all the artifacts outlined above are planned for release.
-We are committed to ensuring that the open science artifacts are accessible, and we will update the community should there be any changes in the availability of these resources. We aim to foster an environment where our research is transparent, reproducible and can be further developed by the scientific community.
